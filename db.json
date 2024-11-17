@@ -1,0 +1,45 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Alfa let",
+      "author": "Gianfranco Loren",
+      "publisherYear": "2023",
+      "genre": "Ficción"
+    },
+    {
+      "id": "2",
+      "title": "Cambio Total",
+      "autor": "Lorena Mitchell",
+      "publisherYear": "1980",
+      "genre": "Drama"
+    },
+    {
+      "id": "3",
+      "title": "Mandatorio de la libertad",
+      "autor": "Fabio Lorenzo",
+      "publisherYear": "1997",
+      "genre": "Histórica"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "nombre": "a",
+      "email": "pinoliso@gmail.com",
+      "password": "123123123"
+    },
+    {
+      "id": "2",
+      "nombre": "a",
+      "email": "pinoliso2@gmail.com",
+      "password": "123123123"
+    },
+    {
+      "id": "3",
+      "nombre": "a",
+      "email": "pinoliso3@gmail.com",
+      "password": "123123123"
+    }
+  ]
+}

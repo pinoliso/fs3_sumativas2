@@ -1,0 +1,70 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <h2>Editar Libro</h2>
+      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Titulo</label>
+          <input
+            type="title"
+            class="form-control"
+            id="title"
+            formControlName="title"
+            [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+          />
+          <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+            <div *ngIf="f['title'].errors['required']">Título es requerido.</div>
+            <div *ngIf="f['title'].errors['maxlength']">Título tiene formato inválido.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="author" class="form-label">Autor</label>
+          <input
+            type="author"
+            class="form-control"
+            id="author"
+            formControlName="author"
+            [ngClass]="{ 'is-invalid': submitted && f['author'].errors }"
+          />
+          <div *ngIf="submitted && f['author'].errors" class="invalid-feedback">
+            <div *ngIf="f['author'].errors['required']">Autor es requerido.</div>
+            <div *ngIf="f['author'].errors['maxlength']">Autor tiene formato inválido.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="publisherYear" class="form-label">Año de Publicación</label>
+          <input
+            type="publisherYear"
+            class="form-control"
+            id="publisherYear"
+            formControlName="publisherYear"
+            [ngClass]="{ 'is-invalid': submitted && f['publisherYear'].errors }"
+          />
+          <div *ngIf="submitted && f['publisherYear'].errors" class="invalid-feedback">
+            <div *ngIf="f['publisherYear'].errors['required']">Año de Publicación es requerido.</div>
+            <div *ngIf="f['publisherYear'].errors['pattern']">Año de Publicación tiene formato inválido.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="genre" class="form-label">Genero</label>
+          <input
+            type="genre"
+            class="form-control"
+            id="genre"
+            formControlName="genre"
+            [ngClass]="{ 'is-invalid': submitted && f['genre'].errors }"
+          />
+          <div *ngIf="submitted && f['genre'].errors" class="invalid-feedback">
+            <div *ngIf="f['genre'].errors['required']">Genero es requerido.</div>
+            <div *ngIf="f['genre'].errors['maxlength']">Genero tiene formato inválido.</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>

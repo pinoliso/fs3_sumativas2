@@ -1,0 +1,12 @@
+<div class="container mt-5">
+  <h2>Book List</h2>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let book of books">
+      <h5>{{ book.title }}</h5>
+      <p>Author: {{ book.author }}</p>
+      <p>Year: {{ book.publisherYear }}</p>
+      <p>Genre: {{ book.genre }}</p>
+      <button class="btn btn-primary" (click)="editBook(book.id)">Edit</button>
+    </li>
+  </ul>
+</div>

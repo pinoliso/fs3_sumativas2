@@ -1,0 +1,75 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <h2>Login</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input
+            type="name"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+          />
+          <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+            <div *ngIf="f['name'].errors['required']">Nombre es requerido.</div>
+            <div *ngIf="f['name'].errors['name']">Nombre tiene formato inválido.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+          />
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">Correo es requerido.</div>
+            <div *ngIf="f['email'].errors['email']">Correo tiene formatio inválido.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f['password.errors'] }"
+          />
+          <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+            <div *ngIf="f['password'].errors['required']">Contraseña es requerido.</div>
+            <div *ngIf="f['password'].errors['minlength']">
+              Contraseña debe tener al menos 8 caracteres.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Confirmar Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            [ngClass]="{ 'is-invalid': submitted && f['confirmPassword.errors'] }"
+          />
+          <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+            <div *ngIf="f['confirmPassword'].errors['required']">Confirmar Contraseña es requerido.</div>
+            <div *ngIf="f['confirmPassword'].errors['minlength']">
+              Contraseña debe tener al menos 8 caracteres.
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
