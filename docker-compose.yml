@@ -8,3 +8,11 @@ services:
       - "3000:3000"
     # volumes:
     #   - ./db.json:/app/db.json
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
