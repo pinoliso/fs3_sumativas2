@@ -12,11 +12,11 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class RegisterComponent {
-  loginForm: FormGroup;
+  registerForm: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.loginForm = this.fb.group({
+    this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.name]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
@@ -25,12 +25,12 @@ export class RegisterComponent {
   }
 
   get f() {
-    return this.loginForm.controls;
+    return this.registerForm.controls;
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
+    if (this.registerForm.valid) {
+      const { email, password } = this.registerForm.value;
       this.authService.login(email, password).subscribe({
         next: (user) => {
           if (user) {

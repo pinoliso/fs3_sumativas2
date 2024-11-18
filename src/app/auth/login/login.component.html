@@ -13,8 +13,8 @@
             [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
           />
           <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-            <div *ngIf="f['email'].errors['required']">Email is required.</div>
-            <div *ngIf="f['email'].errors['email']">Invalid email format.</div>
+            <div *ngIf="f['email'].errors['required']">Correo es requeido.</div>
+            <div *ngIf="f['email'].errors['email']">Correo inválido.</div>
           </div>
         </div>
 
@@ -25,13 +25,11 @@
             class="form-control"
             id="password"
             formControlName="password"
-            [ngClass]="{ 'is-invalid': submitted && f['password.errors'] }"
+            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
           />
           <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-            <div *ngIf="f['password'].errors['required']">Password is required.</div>
-            <div *ngIf="f['password'].errors['minlength']">
-              Password must be at least 6 characters.
-            </div>
+            <div *ngIf="f['password'].errors['required']">Contraseña requerida.</div>
+            <div *ngIf="f['password'].errors['minlength']">La contraseña es inválida.</div>
           </div>
         </div>
 

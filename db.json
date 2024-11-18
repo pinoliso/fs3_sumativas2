@@ -25,19 +25,19 @@
   "users": [
     {
       "id": "1",
-      "nombre": "a",
+      "name": "a",
       "email": "pinoliso@gmail.com",
       "password": "123123123"
     },
     {
       "id": "2",
-      "nombre": "a",
+      "name": "a",
       "email": "pinoliso2@gmail.com",
       "password": "123123123"
     },
     {
       "id": "3",
-      "nombre": "a",
+      "name": "a",
       "email": "pinoliso3@gmail.com",
       "password": "123123123"
     }

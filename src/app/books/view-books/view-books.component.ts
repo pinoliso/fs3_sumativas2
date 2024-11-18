@@ -29,7 +29,11 @@ export class ViewBooksComponent implements OnInit {
   }
 
   deleteBook(id: string): void {
-    this.books = this.books.filter(book => book.id !== id);
+    this.booksService.deleteBook(id).subscribe({
+      next: () => {
+        this.books = this.books.filter((book) => book.id !== id);
+      },
+    });
   }
 
 }

@@ -7,6 +7,7 @@
       <p>Year: {{ book.publisherYear }}</p>
       <p>Genre: {{ book.genre }}</p>
       <button class="btn btn-primary" (click)="editBook(book.id)">Edit</button>
+      <button class="btn btn-danger" (click)="deleteBook(book.id)">Eliminar</button>
     </li>
   </ul>
 </div>
