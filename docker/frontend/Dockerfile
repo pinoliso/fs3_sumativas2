@@ -20,7 +20,7 @@ RUN npm run build -- --configuration production
 FROM nginx:alpine
 
 # Copia los archivos compilados al directorio de NGINX
-COPY --from=build /app/dist/gestion-biblioteca /usr/share/nginx/html
+COPY --from=build /app/dist/library/browser /usr/share/nginx/html
 
 # Expone el puerto 80
 EXPOSE 80
