@@ -38,7 +38,10 @@ export class BookFormComponent implements OnInit {
           next: (book) => {
             this.bookForm.patchValue(book);
             console.log(book)
-          }
+          },
+          error: (err) => {
+            console.error('Error in ActivatedRoute params subscription:', err);
+          },
         });
       }
     });
