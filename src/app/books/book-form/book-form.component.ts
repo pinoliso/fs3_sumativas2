@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BooksService } from '../../services/books.service';
-import { Book } from '../../models/book.model';
+import { ProductsService } from '../../services/products.service';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-book-form',
@@ -13,71 +13,66 @@ import { Book } from '../../models/book.model';
   styleUrl: './book-form.component.css'
 })
 export class BookFormComponent implements OnInit {
-  bookForm: FormGroup;
+  productForm: FormGroup;
   isEditMode = false;
-  bookId: string | null = null;
+  productId: string | null = null;
   submitted = false;
 
-  constructor(private fb: FormBuilder, private booksService: BooksService, private router: Router, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private productsService: ProductsService, private router: Router, private route: ActivatedRoute) {
 
-    this.bookForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(100)]],
-      author: ['', [Validators.required, Validators.maxLength(50)]],
-      publisherYear: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
-      genre: ['', [Validators.required, Validators.maxLength(30)]],
+    this.productForm = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(100)]],
+      description: ['', [Validators.required, Validators.maxLength(100)]],
+      price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      stock: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.isEditMode = true;
-        this.bookId = id;
-        this.booksService.getBookById(this.bookId).subscribe({
-          next: (book) => {
-            this.bookForm.patchValue(book);
-            console.log(book)
-          },
-          error: (err) => {
-            console.error('Error in ActivatedRoute params subscription:', err);
-          },
-        });
-      }
-    });
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isEditMode = true;
+      this.productId = id;
+      this.productsService.getProductById(this.productId).subscribe({
+        next: (product) => {
+          this.productForm.patchValue(product);
+          console.log(product);
+        },
+        error: (err) => {
+          console.error('Error fetching product by ID:', err);
+        },
+      });
+    }
   }
 
   get f() {
-    return this.bookForm.controls;
+    return this.productForm.controls;
   }
 
   onSubmit(): void {
-
     this.submitted = true;
-    if (this.bookForm.valid) {
-      const book: Book = this.bookForm.value;
-      book.id = this.bookId!
+    if (this.productForm.valid) {
+      const product: Product = this.productForm.value;
       if (this.isEditMode) {
-
-        this.booksService.updateBook(this.bookId!, book).subscribe({
-          next: (book) => {
-            alert('Libro guardado');
-            this.router.navigate(['/books']);
+        this.productsService.updateProduct(this.productId!, product).subscribe({
+          next: (product) => {
+            alert('Producto guardado');
+            this.router.navigate(['/products']);
           },
           error: (err) => {
-            console.error('Error al iniciar sesión:', err);
-            alert('Error al guardar el libro');
+            console.error('Error al guardar el producto:', err);
+            alert('Error al guardar el producto');
           }
         });
-      }else {
-        this.booksService.addBook(book).subscribe({
+      } else {
+        this.productsService.addProduct(product).subscribe({
           next: () => {
-              alert('Libro agregado con éxito');
-              this.router.navigate(['/books']);
+            alert('Producto agregado con éxito');
+            this.router.navigate(['/products']);
           },
           error: (err) => {
-              console.error('Error al agregar el libro:', err);
-              alert('Error al guardar el libro');
+            console.error('Error al agregar el producto:', err);
+            alert('Error al guardar el producto');
           }
         });
       }
@@ -85,6 +80,7 @@ export class BookFormComponent implements OnInit {
   }
 
   back(): void {
-    this.router.navigate(['/books']);
+    this.router.navigate(['/products']);
   }
 }
+

@@ -11,7 +11,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 
-  private apiUrl = environment.apiUrl + '/users';
+  private apiUrl = environment.apiUrlAuth + '/users';
   private localStorageKey = 'user';
   public user$ = signal<User | undefined | null>(undefined)
 

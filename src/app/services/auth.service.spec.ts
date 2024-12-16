@@ -3,22 +3,42 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
-import { environment } from '../../environments/environment';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
-  let routerMock: Router;
+  let mockRouter: jasmine.SpyObj<Router>;
+
+  const mockUser: User = {
+    id: '1',
+    name: 'Test User',
+    email: 'test@example.com',
+    password: 'password',
+  };
+
+  const localStorageMock = {
+    getItem: jasmine.createSpy('getItem').and.callFake((key: string) =>
+      key === 'user' ? JSON.stringify(mockUser) : null
+    ),
+    setItem: jasmine.createSpy('setItem'),
+    removeItem: jasmine.createSpy('removeItem'),
+  };
 
   beforeEach(() => {
-    routerMock = { navigate: jasmine.createSpy('navigate') } as any;
+    // Mock localStorage
+    spyOn(localStorage, 'getItem').and.callFake(localStorageMock.getItem);
+    spyOn(localStorage, 'setItem').and.callFake(localStorageMock.setItem);
+    spyOn(localStorage, 'removeItem').and.callFake(localStorageMock.removeItem);
+
+    // Mock Router
+    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         AuthService,
-        { provide: Router, useValue: routerMock },
-      ]
+        { provide: Router, useValue: mockRouter },
+      ],
     });
 
     service = TestBed.inject(AuthService);
@@ -29,45 +49,46 @@ describe('AuthService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
   it('should initialize user$ with the stored user', () => {
-    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify({ id: 1, name: 'Test User', email: 'test@example.com', password: 'password' }));
-    service = TestBed.inject(AuthService); // Re-initializa para que use el mock
-    expect(service.user$()).toEqual({ id: '1', name: 'Test User', email: 'test@example.com', password: 'password' });
+    expect(service.user$()).toEqual(mockUser); // Check if user$ signal is correctly initialized
   });
 
-  it('should register a user', () => {
-    const user: User = { id: '1', name: 'Test User', email: 'test@example.com', password: 'password' };
-    service.register(user).subscribe((res) => {
-      expect(res).toEqual(user);
+  it('should log in and set user$', () => {
+    service.login(mockUser.email, mockUser.password).subscribe((user) => {
+      expect(user).toEqual(mockUser);
+      expect(service.user$()).toEqual(mockUser);
+      expect(localStorage.setItem).toHaveBeenCalledWith('user', JSON.stringify(mockUser));
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/users`);
-    expect(req.request.method).toBe('POST');
-    req.flush(user);
-  });
-
-  it('should login a user', () => {
-    const user: User = { id: '1', name: 'Test User', email: 'test@example.com', password: 'password' };
-    spyOn(localStorage, 'setItem');
-    service.login('test@example.com', 'password').subscribe((res) => {
-      expect(res).toEqual(user);
-      expect(localStorage.setItem).toHaveBeenCalledWith('user', JSON.stringify(user));
-    });
-
-    const req = httpMock.expectOne(`${environment.apiUrl}/users?email=test@example.com&password=password`);
+    const req = httpMock.expectOne(
+      `${service['apiUrl']}?email=${mockUser.email}&password=${mockUser.password}`
+    );
     expect(req.request.method).toBe('GET');
-    req.flush([user]);
+    req.flush([mockUser]); // Simulate API response
   });
 
-  it('should handle logout', () => {
-    spyOn(localStorage, 'removeItem');
+  it('should log out and clear user$', () => {
     service.logout();
+    expect(service.user$()).toBeNull();
     expect(localStorage.removeItem).toHaveBeenCalledWith('user');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
+  });
+
+  it('should register a new user', () => {
+    const newUser: User = {
+      id: '2',
+      name: 'New User',
+      email: 'new@example.com',
+      password: 'newpassword',
+    };
+
+    service.register(newUser).subscribe((user) => {
+      expect(user).toEqual(newUser);
+    });
+
+    const req = httpMock.expectOne(service['apiUrl']);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(newUser);
+    req.flush(newUser); // Simulate API response
   });
 });
-

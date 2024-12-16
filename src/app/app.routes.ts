@@ -9,8 +9,8 @@ import { BookFormComponent } from './books/book-form/book-form.component';
 export const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
-  { path: 'books', component: ViewBooksComponent, canActivate: [AuthGuard] },
-  { path: 'books/new', component: BookFormComponent, canActivate: [AuthGuard] },
-  { path: 'books/edit/:id', component: BookFormComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ViewBooksComponent, canActivate: [AuthGuard] },
+  { path: 'products/new', component: BookFormComponent, canActivate: [AuthGuard] },
+  { path: 'products/edit/:id', component: BookFormComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
 ];

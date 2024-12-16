@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000',
-  appName: 'Biblioteca Digital',
+  apiUrlProducts: 'http://localhost:8080/api/products',
+  apiUrlSellProducts: 'http://localhost:8080/api/sell/products',
+  apiUrlAuth: 'http://localhost:8080/api/auth',
+  appName: 'Book Store',
 };

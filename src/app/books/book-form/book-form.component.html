@@ -2,64 +2,64 @@
   <div class="row justify-content-center">
     <div class="col-md-4">
       <h2>Editar Libro</h2>
-      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label for="title" class="form-label">Titulo</label>
+          <label for="name" class="form-label">Nombre</label>
           <input
-            type="title"
+            type="name"
             class="form-control"
-            id="title"
-            formControlName="title"
-            [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+            id="name"
+            formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
           />
-          <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
-            <div *ngIf="f['title'].errors['required']">Título es requerido.</div>
-            <div *ngIf="f['title'].errors['maxlength']">Título tiene formato inválido.</div>
+          <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+            <div *ngIf="f['name'].errors['required']">Nombre es requerido.</div>
+            <div *ngIf="f['name'].errors['maxlength']">Nombre tiene formato inválido.</div>
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="author" class="form-label">Autor</label>
+          <label for="description" class="form-label">Descripción</label>
           <input
-            type="author"
+            type="description"
             class="form-control"
-            id="author"
-            formControlName="author"
-            [ngClass]="{ 'is-invalid': submitted && f['author'].errors }"
+            id="description"
+            formControlName="description"
+            [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"
           />
-          <div *ngIf="submitted && f['author'].errors" class="invalid-feedback">
-            <div *ngIf="f['author'].errors['required']">Autor es requerido.</div>
-            <div *ngIf="f['author'].errors['maxlength']">Autor tiene formato inválido.</div>
+          <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+            <div *ngIf="f['description'].errors['required']">Descripción es requerido.</div>
+            <div *ngIf="f['description'].errors['maxlength']">Descripción tiene formato inválido.</div>
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="publisherYear" class="form-label">Año de Publicación</label>
+          <label for="price" class="form-label">Precio</label>
           <input
-            type="publisherYear"
+            type="price"
             class="form-control"
-            id="publisherYear"
-            formControlName="publisherYear"
-            [ngClass]="{ 'is-invalid': submitted && f['publisherYear'].errors }"
+            id="price"
+            formControlName="price"
+            [ngClass]="{ 'is-invalid': submitted && f['price'].errors }"
           />
-          <div *ngIf="submitted && f['publisherYear'].errors" class="invalid-feedback">
-            <div *ngIf="f['publisherYear'].errors['required']">Año de Publicación es requerido.</div>
-            <div *ngIf="f['publisherYear'].errors['pattern']">Año de Publicación tiene formato inválido.</div>
+          <div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
+            <div *ngIf="f['price'].errors['required']">Precio es requerido.</div>
+            <div *ngIf="f['price'].errors['pattern']">Precio tiene formato inválido.</div>
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="genre" class="form-label">Genero</label>
+          <label for="stock" class="form-label">Stock</label>
           <input
-            type="genre"
+            type="stock"
             class="form-control"
-            id="genre"
-            formControlName="genre"
-            [ngClass]="{ 'is-invalid': submitted && f['genre'].errors }"
+            id="stock"
+            formControlName="stock"
+            [ngClass]="{ 'is-invalid': submitted && f['stock'].errors }"
           />
-          <div *ngIf="submitted && f['genre'].errors" class="invalid-feedback">
-            <div *ngIf="f['genre'].errors['required']">Genero es requerido.</div>
-            <div *ngIf="f['genre'].errors['maxlength']">Genero tiene formato inválido.</div>
+          <div *ngIf="submitted && f['stock'].errors" class="invalid-feedback">
+            <div *ngIf="f['stock'].errors['required']">Stock es requerido.</div>
+            <div *ngIf="f['stock'].errors['maxlength']">Stock tiene formato inválido.</div>
           </div>
         </div>
 

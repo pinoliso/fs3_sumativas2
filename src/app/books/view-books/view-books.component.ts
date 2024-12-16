@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Book } from './../../models/book.model';
-import { BooksService } from './../../services/books.service';
+import { Product } from './../../models/product.model';
+import { ProductsService } from '../../services/products.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,26 +12,26 @@ import { Router } from '@angular/router';
   imports: [CommonModule]
 })
 export class ViewBooksComponent implements OnInit {
-  books: Book[] = [];
+  products: Product[] = [];
 
-  constructor(private booksService: BooksService, private router: Router) {}
+  constructor(private productsService: ProductsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.booksService.getBooks().subscribe({
+    this.productsService.getSellProducts().subscribe({
       next: (data) => {
-          this.books = data;
+          this.products = data;
       },
     });
   }
 
-  editBook(bookId: string): void {
-    this.router.navigate(['/books/edit', bookId]);
+  editProduct(productId: string): void {
+    this.router.navigate(['/products/edit', productId]);
   }
 
-  deleteBook(id: string): void {
-    this.booksService.deleteBook(id).subscribe({
+  deleteProduct(id: string): void {
+    this.productsService.deleteProduct(id).subscribe({
       next: () => {
-        this.books = this.books.filter((book) => book.id !== id);
+        this.products = this.products.filter((product) => product.id !== id);
       },
     });
   }
